@@ -3,21 +3,46 @@
 <html>
   <head>
     <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/chat-app.css">
   </head>
   <body>
-    Welcome to Chat App
+    <div class="container-fluid">
+      <div class="row">
+          <section class="col-9 chat">
+            <h6>Chat Room</h6>
+            <section class="chat__messages"></section>
+            <section class="chat__input input-group">
+              <input type="text" class="form-control js-message__input" placeholder="Enter message" aria-describedby="button-addon-actions">
+              <div class="input-group-append" id="button-addon-actions">
+                <button class="btn btn-outline-secondary js-publishmsg__btn" type="button">Send</button>
+                <button class="btn btn-outline-secondary js-publishloc__btn" type="button">Send Location</button>
+              </div>
+            </section>
+          </section>
+          <section class="col-3 population">
+            <h6>Population</h6>
+            <section class="population__list"></section>
+          </section>
+      </div>
+    </div>
 
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-      var socket = io();
-
-      socket.on('connect', () => {
-        console.log('Connected to Server!');
-      });
-
-      socket.on('disconnect', () => {
-        console.log('Server Disconnected!');
-      });
+    <script id="message-card__template" type="text/x-handlebars-template">
+      <div class="card bg-light mb-3" style="max-width: 18rem;">
+        <div class="card-header">{{from}}</div>
+        <div class="card-body">
+          {{!-- <h5 class="card-title">Light card title</h5> --}}
+          <p class="card-text">{{text}}</p>
+          <p class="card-text"><small class="text-muted">{{createdAt}}</small></p>
+        </div>
+      </div>
     </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+    <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
   </body>
 </html>

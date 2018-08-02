@@ -1,0 +1,52 @@
+body {
+    background-color: grey;
+    overflow: hidden;
+}
+.chat {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+.chat__messages {
+    background-color: aliceblue;
+    border: 5px solid white;
+    border-radius: 10px;
+    flex-grow: 1;
+    margin-bottom: 10px;;
+    overflow: auto;
+    padding: 20px;
+}
+.chat__input {
+    background-color: beige;
+    border: 5px solid white;
+    border-radius: 10px;
+    display: flex;
+    flex-shrink: 0;
+    padding: 20px;
+}
+.population {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    padding-bottom: 20px;
+    padding-top: 20px;
+}
+.population__list {
+    background-color: beige;
+    border: 5px solid white;
+    border-radius: 10px;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+.card {
+    font-size: .75rem;
+}
+.card-header,
+.card-body {
+    padding: .25rem 1rem;
+}
+.card-text {
+    margin-bottom: .25rem;
+}
