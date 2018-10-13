@@ -2,6 +2,32 @@ body {
     background-color: grey;
     overflow: hidden;
 }
+
+/**Join Room Page styles*/
+.join-room__form {
+    background: aliceblue;
+    border-radius: 10px;
+    margin: 0 auto;
+    padding: 25px;
+    position: relative;
+    top: 100px;
+    width: 350px;
+}
+
+.join-room__form h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form-control__spacing {
+    margin-bottom: 20px;
+}
+
+.join-room__btn {
+    width: 100%;
+}
+
+/** Chat Room styles*/
 .chat {
     display: flex;
     flex-direction: column;
@@ -14,9 +40,9 @@ body {
     border: 5px solid white;
     border-radius: 10px;
     flex-grow: 1;
-    margin-bottom: 10px;;
+    margin-bottom: 10px;
     overflow: auto;
-    padding: 20px;
+    padding: 20px;;
 }
 .chat__input {
     background-color: beige;

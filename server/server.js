@@ -30,7 +30,6 @@ io.on('connection', (socket) => {
   });
 
   socket.on('createMessage', (message, callback) => {
-    console.log('created Message!', message);
     // This is used to emit to everyone connected.
     io.emit('newMessage', {
       from: message.from,
@@ -46,6 +45,15 @@ io.on('connection', (socket) => {
     // });
 
     callback();
+  });
+
+  socket.on('createLocationMessage', (coords) => {
+    io.emit('newMessage', {
+      from: 'Admin',
+      text: 'https://www.google.com/maps?q=' + coords.latitude + ',' + coords.longitude,
+      createdAt: new Date().toDateString(),
+      textAsLink: true
+    });
   });
 
   socket.on('disconnect', () => {
