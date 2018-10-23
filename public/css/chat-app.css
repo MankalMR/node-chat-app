@@ -76,3 +76,6 @@ body {
 .card-text {
     margin-bottom: .25rem;
 }
+.list-group-item {
+    margin: .125rem;
+}
