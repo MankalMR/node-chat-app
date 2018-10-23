@@ -30,6 +30,7 @@
       </div>
     </div>
 
+    <!-- Adding Templates -->
     <script id="message-card__template" type="text/x-handlebars-template">
       <div class="card bg-light mb-3" style="max-width: 18rem;">
         <div class="card-header">{{from}}</div>
@@ -45,9 +46,18 @@
       </div>
     </script>
 
+    <script id="user-list__template" type="text/x-handlebars-template">
+      <ul>
+        {{#each this}}
+          <li>{{this}}</li>
+        {{/each}}
+      </ul>
+    </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
     <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/js/utils/deparam.js"></script>
     <script type="text/javascript" src="/js/chat.js"></script>
   </body>
 </html>

@@ -6,7 +6,16 @@ function chatApp () {
     locBtn: '.js-publishloc__btn'
   },
   _private = {
-
+    processTemplate: function processTemplate (templateId, targetIdOrClass, data, replaceOrAppend) {
+      const source = document.getElementById(templateId).innerHTML;
+      const template = Handlebars.compile(source);
+      const generatedHTML = template(data);
+      if (replaceOrAppend === 'R') {
+        $(targetIdOrClass).html(generatedHTML);
+      } else {
+        $(targetIdOrClass).append(generatedHTML);
+      }
+    },
     publishMessage: function publishMessage (e) {
       const $messageInput = $(_vars.msgInput);
       e.preventDefault();
@@ -46,17 +55,29 @@ function chatApp () {
 
       socket.on('connect', function () {
         console.log('Connected to Server!');
+        var params = $.deparam(window.location.search);
+
+        socket.emit('joinRoom', params, function (err) {
+          if (err) {
+            alert(err);
+            window.location.href = '/';
+          } else {
+            console.log('Credentials OK!');
+          }
+        });
       });
 
       socket.on('disconnect', function () {
         console.log('Server Disconnected!');
       });
 
+      //whenever user list is updated, like joining or leaving
+      socket.on('updateUserList', function (users) {
+        _private.processTemplate('user-list__template', '.population__list', users, 'R');
+      });
+
       socket.on('newMessage', function (data) {
-        const source = document.getElementById('message-card__template').innerHTML;
-        const template = Handlebars.compile(source);
-        const messageCardHtml = template(data);
-        $('.chat__messages').append(messageCardHtml);
+        _private.processTemplate('message-card__template', '.chat__messages', data);
       });
 
       //bind events
