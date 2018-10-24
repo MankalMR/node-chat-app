@@ -51,12 +51,16 @@ io.on('connection', (socket) => {
   });
 
   socket.on('createMessage', (message, callback) => {
-    // This is used to emit to everyone connected.
-    io.emit('newMessage', {
-      from: message.from,
-      text: message.text,
-      createdAt: new Date().toDateString()
-    });
+    const user = users.getUser(socket.id);
+
+    if (user && isRealString(message.text)) {
+      // This is used to emit to everyone connected.
+      io.to(user.room).emit('newMessage', {
+        from: user.name,
+        text: message.text,
+        createdAt: new Date().toDateString()
+      });
+    }
 
     // This is used to emit to everyone connected but the user creating the message.
     // socket.broadcast.emit('newMessage', {
@@ -69,12 +73,15 @@ io.on('connection', (socket) => {
   });
 
   socket.on('createLocationMessage', (coords) => {
-    io.emit('newMessage', {
-      from: 'Admin',
-      text: 'https://www.google.com/maps?q=' + coords.latitude + ',' + coords.longitude,
-      createdAt: new Date().toDateString(),
-      textAsLink: true
-    });
+    const user = users.getUser(socket.id);
+    if (user) {
+      io.to(user.room).emit('newMessage', {
+        from: user.name,
+        text: 'https://www.google.com/maps?q=' + coords.latitude + ',' + coords.longitude,
+        createdAt: new Date().toDateString(),
+        textAsLink: true
+      });
+    }
   });
 
   socket.on('disconnect', () => {

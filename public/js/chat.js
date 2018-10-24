@@ -21,7 +21,6 @@ function chatApp () {
       e.preventDefault();
 
       socket.emit('createMessage', {
-        from: 'Manu',
         text: $messageInput.val()
       }, function () {
           $messageInput.val(''); //reset the message input to empty value
