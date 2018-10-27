@@ -23,10 +23,15 @@ class Users {
     return typeof user[0] !== 'undefined' ? user[0]: null;
   }
 
-  getUserList (room) {
+  getDisplayNameList (room) {
     const users = this.users.filter((user) =>  user.room === room);
     const namesArray = users.map((user) => user.name);
     return namesArray;
+  }
+
+  isDisplayNameTakenInRoom (displayName, room) {
+    const roomUserList = this.getDisplayNameList(room);
+    return roomUserList.findIndex((userName) => userName === displayName) > -1 ? true: false;
   }
 }
 

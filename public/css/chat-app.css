@@ -3,6 +3,10 @@ body {
     overflow: hidden;
 }
 
+input {
+    text-transform: uppercase;
+}
+
 /**Join Room Page styles*/
 .join-room__form {
     background: aliceblue;

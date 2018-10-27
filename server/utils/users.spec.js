@@ -36,7 +36,7 @@ describe('Users', () => {
   });
 
   it('should return names for room A', () => {
-    var usersList = users.getUserList('A');
+    var usersList = users.getDisplayNameList('A');
 
     expect(usersList).toEqual(['Manu', 'Pia']);
   });
@@ -67,5 +67,13 @@ describe('Users', () => {
     var removedUser = users.removeUser('4');
 
     expect(removedUser).toEqual(null);
+  });
+
+  it('isDisplayNameTakenInRoom, should return true', () => {
+    expect(users.isDisplayNameTakenInRoom('Priyam', 'B')).toEqual(true);
+  });
+
+  it('isDisplayNameTakenInRoom, should return false', () => {
+    expect(users.isDisplayNameTakenInRoom('Priyam', 'C')).toEqual(false);
   });
 });

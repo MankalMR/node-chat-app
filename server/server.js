@@ -24,14 +24,15 @@ io.on('connection', (socket) => {
     const { displayName, roomName } = params;
     if (!isRealString(displayName) || !isRealString(roomName)) {
       return callback('Display Name and Room Name are required!');
+    } else if (!users.getUser(socket.id) && users.isDisplayNameTakenInRoom(displayName, roomName)) {
+      return callback(`Display Name: ${displayName} taken for Room: ${roomName}!`);
     }
-
     socket.join(roomName);
     //leave the room using socket.leave(params.roomName)
     users.removeUser(socket.id);
     users.addUser(socket.id, displayName, roomName);
 
-    io.to(roomName).emit('updateUserList', users.getUserList(roomName));
+    io.to(roomName).emit('updateUserList', users.getDisplayNameList(roomName));
 
     socket.emit('newMessage', {
       from: 'Admin',
@@ -48,6 +49,8 @@ io.on('connection', (socket) => {
     //io.emit -> io.to(roomName).emit()
     //socket.broadcast.emit -> socket.broadcast.to(roomName).emit()
     //socket.emit
+
+    return callback();
   });
 
   socket.on('createMessage', (message, callback) => {
@@ -90,7 +93,7 @@ io.on('connection', (socket) => {
     if (removedUser) {
       const userName = removedUser.name;
       const room = removedUser.room;
-      const usersList = users.getUserList(room);
+      const usersList = users.getDisplayNameList(room);
 
       io.to(room).emit('updateUserList', usersList);
       io.to(room).emit('newMessage', {

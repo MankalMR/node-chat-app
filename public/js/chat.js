@@ -3,7 +3,8 @@ function chatApp () {
   const _vars = {
     msgInput: '.js-message__input',
     msgBtn: '.js-publishmsg__btn',
-    locBtn: '.js-publishloc__btn'
+    locBtn: '.js-publishloc__btn',
+    chatRoomHeading: '.chat h6'
   },
   _private = {
     processTemplate: function processTemplate (templateId, targetIdOrClass, data, replaceOrAppend) {
@@ -61,6 +62,7 @@ function chatApp () {
             alert(err);
             window.location.href = '/';
           } else {
+            $(_vars.chatRoomHeading).append(': ' + params.roomName); //update chat room name
             console.log('Credentials OK!');
           }
         });
